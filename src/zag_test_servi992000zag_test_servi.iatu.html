@@ -1,0 +1,184 @@
+`   if ( &GEN_INCLUDE_FUNCTIONS_ICF_CHECK& )
+        declare width(i, a), w(i, a), pos(t, l), alignment(elem) in "some.html";
+        &GEN_INCLUDE_FUNCTIONS_ICF&;
+    else
+        &GEN_INCLUDE_FUNCTIONS&;
+    end;
+if (~currdynpro.speechenabled != "")
+`<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+`end`
+<html`if (~currdynpro.speechenabled != "")
+    ` xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:vxml="http://www.w3.org/2001/vxml"
+      xmlns:ev="http://www.w3.org/2001/xml-events"
+      xmlns:xv="http://www.voicexml.org/2002/xhtml+voice"`
+  end` `
+`class="MobileHtml" `
+` style="" >`
+  if ( ~itsmobileNameSpace != "" )
+    ~current_service = ~itsmobileNameSpace & ~service;
+  elseif ( strsub(~sources, 0, 1) == "/" )
+    ~current_service = strsub(~sources, 0, strchr(~sources, "/", 1)+1) & ~service;
+  else
+    ~current_service = ~service;
+  end;
+  if ( ~AttrMimeUrlService == "" ) ~AttrMimeUrlService = ~current_service; end;
+  if ( ~AttrMimeUrlTheme == "" ) ~AttrMimeUrlTheme = ~theme; end;`
+
+`
+<!-- Generated Template
+      NAME:   ZAG_TEST_SERVI
+      SCREEN: 2000
+      DATE:   20190419
+      TIME:   091551
+      STYLE:  MOBILE5
+-->
+    `<head>`
+    if (  &GEN_INCLUDE_DEVICE_ICF_CHECK& )
+       &GEN_INCLUDE_DEVICE_ICF&;
+    end;
+        `<title>`~windowtitle`</title>
+`if ( ( ~messageline != "" ) && ( ~itsmobilemsgsound == "1" ) || ( ~currdynpro.messagesound != "" ) )
+   if ( ~messagetype == "S" || ~currdynpro.messagesound == "S" )
+         <!-- sucess message -->
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsoundmsg.wav")`" loop="1" />
+`  elseif ( ~messagetype == "I" || ~currdynpro.messagesound == "I" )
+         <!-- information message -->
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsoundmsg.wav")`" loop="1" />
+`  elseif ( ~messagetype == "W" || ~currdynpro.messagesound == "W" )
+         <!-- warning message -->
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsounderr.wav")`" loop="1" />
+`  elseif ( ~messagetype == "E" || ~currdynpro.messagesound == "E" )
+         <!-- error message -->
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsounderr.wav")`" loop="3" />
+`  elseif ( ~currdynpro.messagesound != "" )
+         <!-- message type not set -->
+`        <bgsound src="`mimeURL(~service=~current_service, ~theme=~theme, ~language="", ~name=~currdynpro.messagesound)`" loop="1" />
+`  else
+         <!-- message type not set -->
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsoundmsg.wav")`" loop="1" />
+`  end;
+   if (NOTIFY_BELL_SIGNAL > 0)
+`        <bgsound src="`mimeURL(~service="itsmobile", ~theme=99, ~language="", ~name="sounds/all/sapsounderr.wav")`" loop="`NOTIFY_BELL_SIGNAL`">
+`  end;
+end;
+ if ( &GEN_INCLUDE_CSS_ICF_CHECK& ) <!-- customer include from gui settings -->`
+        <link rel="stylesheet" href="`&GEN_INCLUDE_CSS_ICF&`" type="text/css" />
+` else <!-- default include from itsmobile --> `
+        <link rel="stylesheet" href="`&GEN_INCLUDE_CSS&`" type="text/css" />
+` end;
+ if ( &GEN_INCLUDE_JSCRIPT_ICF_CHECK& ) <!-- customer include specified in gui settings -->`
+        <script type="text/javascript" language="javascript" src="`&GEN_INCLUDE_JSCRIPT_ICF&`"></script>
+` else <!-- default include from itsmobile -->`
+        <script type="text/javascript" language="javascript" src="`&GEN_INCLUDE_JSCRIPT&`"></script>
+` end;`
+        <script type="text/javascript" language="Javascript">
+           var itsmobile_eos = "`wgateurl(~okcode="/nex")`";
+        </script>
+` <!-- rfid values --------------------------- -->
+  if ( ~RfidEnabledFields != "" ) `
+        <script type="text/javascript" language="javascript" src="`&GEN_INCLUDE_RFID&`"></script>
+        <script type="text/javascript" language="Javascript">
+           var rfid_fields = new Object;
+`   repeat with i from 1 to ~RfidEnabledFields.dim
+      <!-- get field name and index -->
+      rfidField = ~RfidEnabledFields[i];
+      rfidFieldIdx = ~RfidEnabledFields[i].idx;
+      rfidFieldParams = ~RfidEnabledFields[i].params; `
+           rfid_fields["`rfidField`[`rfidFieldIdx`]"] = { `rfidFieldParams` };
+`   end;`
+        </script>
+` end;`
+
+`       <!-- Check if screen supports voice integration -->
+        if ( ~currdynpro.speechenabled != "" )
+          <!-- include the htmlb functions for voice integration -->
+          if ( &GEN_INCLUDE_VOICE_ICF_CHECK& ) <!-- customers voice generation html -->
+            &GEN_INCLUDE_VOICE_ICF&;
+          else <!-- default its default voice include -->
+            &GEN_INCLUDE_VOICE&;
+          end;
+        end;
+    `</head>`
+    `<body `
+      if (~currdynpro.speechenabled != "")` ev:event="load" ev:handler="#sayOnPageLoad"` else
+      ` onload="setFocus('`~focusfield`')"` end;
+      ` onkeydown="return processKeyEvent(event);" onhelp="return false;"`
+      ` style="" `
+`class="MobileBody" `
+`id="MobileBody" `
+` >
+`
+        `<form method="post" action="`WGateURL()`" `
+`class="mobileform" `
+`id="mobileform" `
+`name="mobileform" `
+` onsubmit="return firstSend()" style="`
+`display:inline; `
+`">
+            <!-- hidden okcode field -->
+            <input type="hidden" id="~OkCode" name="~OkCode" value="/0" />
+            <!-- hidden fkey field -->
+            <input type="hidden" id="~FKey" name="~FKey" value="" />
+            <!-- hidden focus field -->
+            <input type="hidden" id="~Focusfield" name="~Focusfield" value="" />
+            <!-- already send flag -->
+            <input type="hidden" id="~ItsMobFirstSend" name="~ItsMobFirstSend" value="" />
+            `if (~SEC_SESSTOKEN != "")`<input type="hidden" name="~SEC_SESSTOKEN" value="`~SEC_SESSTOKEN`" />`end;
+xFactorFromGenerator=1000`
+`yFactorFromGenerator=1000
+`<!-- main screen begin -->`
+`<div width="100%" >`
+    if ( ~itsmobileCuaInclude != "" ) <!-- customers cua area -->
+       include(~service=~current_service, ~language="", ~theme=~theme, ~name=~itsmobileCuaInclude & ".html");
+    elseif ( ~itsmobileNoCuaInclude != "1" && ~itsmobileNoCuaInclude != "X" ) <!-- default cua area -->
+       include(~service="itsmobile", ~language="", ~theme="99", ~name="include/cuaarea.html");
+    end
+`</div>`
+`<div `
+`class="MobileUserArea" `
+` style="`
+`height:`y_length("540")`; `
+`position:relative; `
+`width:`x_length("1452")`; `
+` ">`
+if ( ( 'LABEL'[1].exists == "X" ) && ( 'LABEL'[1].visible == "X" ) )
+    `<span `
+    if ( 'LABEL'[1].highlighted == "X" )
+        ``
+`class="MobileLabelHighlighted" `
+` `
+           `style="`
+`height:`y_length("20")`; `
+`left:`x_length("0")`; `
+`position:absolute; `
+`top:`y_length("0")`; `
+`width:`x_length("144")`; `
+` `
+                `display:block; `
+                        if ( 'LABEL'[1].alignment == "right" )`; text-align: right; `end
+                `" `
+    else
+        ``
+`class="MobileLabel" `
+` `
+           `style="`
+`height:`y_length("20")`; `
+`left:`x_length("0")`; `
+`position:absolute; `
+`top:`y_length("0")`; `
+`width:`x_length("144")`; `
+` `
+                `display:block; `
+                        if ( 'LABEL'[1].alignment == "right" )`; text-align: right; `end
+                `" `
+    end
+    `>`strmask('LABEL'[1].label)`</span>`
+end;
+`</div>
+<!-- main screen end -->`
+        `</form>`
+    `</body>`
+`</html>
+                                                                                                                                                                                                                                            

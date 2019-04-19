@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_IASP" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <ATTR>
+    <SERVICE>ZAG_TEST_SERVI</SERVICE>
+    <ORIGLANG>E</ORIGLANG>
+    <MODIFLANG>E</MODIFLANG>
+    <TEXT>test</TEXT>
+   </ATTR>
+   <PARAMETERS>
+    <W3SERVPARA>
+     <SERVICE>ZAG_TEST_SERVI</SERVICE>
+     <NAME>~TRANSACTION</NAME>
+     <VALUE>ZAG_TEST_SERVI</VALUE>
+    </W3SERVPARA>
+   </PARAMETERS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
