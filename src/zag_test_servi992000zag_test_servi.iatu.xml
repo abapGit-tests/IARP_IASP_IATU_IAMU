@@ -10,6 +10,7 @@
     <PROGRAMM>ZAG_TEST_SERVI</PROGRAMM>
     <ORIGLANG>E</ORIGLANG>
     <MODIFLANG>E</MODIFLANG>
+    <TEXT>Test</TEXT>
    </ATTR>
   </asx:values>
  </asx:abap>
